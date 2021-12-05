@@ -26,49 +26,77 @@ Using this new interpretation of the commands, calculate the horizontal position
 
 */
 
-
 const fs = require("fs");
 
-fs.readFile("./day2/input.txt", "utf8", (err, data) => {
+const data = fs.readFileSync("./day2/input.txt", "utf8", (err, data) => {
   if (err) {
     console.error(err);
     return data;
   }
+})
 
-  let df = data.split("\n");
-  let arr = []
+let df = data.split("\n");
+let arr = [];
 
-  let fwdCnt = 0
-  let upCnt = 0
-  let downCnt = 0
+let fwdCnt = 0;
+let upCnt = 0;
+let downCnt = 0;
+let aim = 0;
 
-  df.forEach((element) => {
-    let obj = element.split(" ")
+df.forEach((element) => {
+  let obj = element.split(" ");
 
   switch (obj[0]) {
-    case 'forward':
-      fwdCnt += parseInt(obj[1]) 
-      //console.log(fwdCnt)
+    case "forward":
+      fwdCnt += parseInt(obj[1]);
+      downCnt += parseInt(aim) * parseInt(obj[1]);
+      console.log(
+        "fwdCnt:",
+        fwdCnt,
+        "downCnt:",
+        downCnt,
+        "upCnt:",
+        upCnt,
+        "aim:",
+        aim
+      );
       break;
-    case 'up':
-      upCnt += parseInt(obj[1]) 
-      //console.log(upCnt)
+    case "up":
+      aim -= parseInt(obj[1]);
+      console.log(
+        "fwdCnt:",
+        fwdCnt,
+        "downCnt:",
+        downCnt,
+        "upCnt:",
+        upCnt,
+        "aim:",
+        aim
+      );
       break;
-    case 'down':
-      downCnt += parseInt(obj[1]) 
-      //console.log(upCnt)
+    case "down":
+      aim += parseInt(obj[1]);
+      console.log(
+        "fwdCnt:",
+        fwdCnt,
+        "downCnt:",
+        downCnt,
+        "upCnt:",
+        upCnt,
+        "aim:",
+        aim
+      );
       break;
     default:
       break;
-  }    
-  });
-
-  const totVert = downCnt - upCnt
-  const totLat = fwdCnt
-  const pTot = totVert * totLat
-
-  console.log("downCnt - upCnt :",  downCnt - upCnt)
-  console.log("fwdCnt", fwdCnt)
-
-  console.log(pTot)
+  }
 });
+
+const totVert = downCnt - upCnt;
+const totLat = fwdCnt;
+const pTot = totVert * totLat;
+
+console.log("downCnt - upCnt :", downCnt - upCnt);
+console.log("fwdCnt", fwdCnt);
+
+console.log(pTot);
